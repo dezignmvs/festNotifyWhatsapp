@@ -1,0 +1,44 @@
+HOW TO DEPLOY FESTNOTIFY
+
+1. VERCEL.COM (For the Main Website / HTML files)
+------------------------------------------------
+Vercel is best for hosting the static website (HTML/CSS/JS).
+Since all the front-end files are in the main "fest_managment-main" folder:
+
+1. Create a GitHub repository and push your entire "fest_managment-main" folder to it.
+2. Go to https://vercel.com/ and log in with your GitHub account.
+3. Click "Add New..." > "Project".
+4. Import your repository.
+5. In the "Build and Output Settings":
+   - Framework Preset: Other
+   - Build Command: leave empty
+   - Output Directory: leave empty (or "." if it forces you)
+6. Click "Deploy". Vercel will automatically serve your index.html and other HTML files.
+
+
+2. RENDER.COM (For the WhatsApp Bot)
+------------------------------------------------
+Render is best for hosting backend services like the Node.js WhatsApp bot because it provides a persistent environment needed for Puppeteer.
+
+1. Create a GitHub repository specifically for the "whatsapp" folder (e.g., festNotifyWhatsapp). 
+   (We are pushing the contents of the whatsapp folder to https://github.com/dezignmvs/festNotifyWhatsapp.git)
+2. Go to https://render.com/ and log in with your GitHub account.
+3. Click "New" > "Web Service".
+4. Select "Build and deploy from a Git repository" and click "Next".
+5. Connect your "festNotifyWhatsapp" repository.
+6. Configure the Web Service:
+   - Name: festnotify-whatsapp-bot
+   - Region: Choose the closest one
+   - Branch: main (or master)
+   - Root Directory: leave empty (since the repository itself is the bot code)
+   - Environment: Node
+   - Build Command: npm install
+   - Start Command: npm start
+7. Environment Variables:
+   - Expand "Advanced" > "Add Environment Variable".
+   - Key: PORT | Value: 3000
+   - (If needed, add any Firebase environment variables here instead of committing .env)
+8. Click "Create Web Service".
+9. Render will deploy it. Once live, you can click the URL to see the "Live Showing" status page of the bot.
+
+Note: Since Render's free tier spins down after inactivity, your bot might go offline if not accessed frequently. Railway.app or a paid Render tier is recommended for 24/7 uptime.
